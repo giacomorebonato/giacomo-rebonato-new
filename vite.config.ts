@@ -6,11 +6,6 @@ import type { UserConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 const config: UserConfig = {
-	resolve: {
-		alias: {
-			lodash: 'lodash-es',
-		},
-	},
 	buildSteps: [
 		{
 			name: 'client',
@@ -84,8 +79,8 @@ const config: UserConfig = {
 			},
 			manifest: {
 				theme_color: '#F4E2CA',
-				name: 'FastRat',
-				short_name: 'FastRat',
+				name: 'Giacomo Rebonato',
+				short_name: 'Giacomo Rebonato',
 				description:
 					'A starter kit with great DX for building PWA with Fastify + React',
 				icons: [

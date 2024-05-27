@@ -15,7 +15,9 @@ const distClientPath = import.meta.env.PROD
 	? Path.join(appRootPath.path, 'dist/client')
 	: Path.join(appRootPath.path, 'public')
 
-export const vitePlugin = fastifyPlugin(async (fastify) => {
+export const vitePlugin = fastifyPlugin<{
+	nodeEnv: 'development' | 'production' | 'test'
+}>(async (fastify, options) => {
 	if (import.meta.env.PROD) {
 		await fastify.register(import('@fastify/static'), {
 			prefix: '/assets/',
@@ -62,8 +64,11 @@ export const vitePlugin = fastifyPlugin(async (fastify) => {
 			return reply.code(302).redirect(request.redirect.to)
 		}
 
-		// biome-ignore lint/style/noNonNullAssertion: <explanation>
-		const { head, footer } = createTemplate(request.helmetContext!.helmet!)
+		const { head, footer } = createTemplate(
+			// biome-ignore lint/style/noNonNullAssertion: <explanation>
+			request.helmetContext!.helmet!,
+			options.nodeEnv,
+		)
 
 		const passStream = new PassThrough()
 

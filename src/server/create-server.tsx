@@ -1,9 +1,5 @@
-import { fastifyTRPCPlugin } from '@trpc/server/adapters/fastify'
 import { type FastifyServerOptions, fastify } from 'fastify'
-import { googleAuth } from '#/auth/google-auth'
-import { apiRouter } from './api-router'
 import { env } from './env'
-import { createContext } from './trpc-context'
 
 export async function createServer(
 	options: FastifyServerOptions = {
@@ -18,20 +14,8 @@ export async function createServer(
 			hostNamesRedirectFrom: env.HOST_NAMES_REDIRECT_FROM,
 			hostNameRedirectTo: env.SITE_URL,
 		})
-		.register(import('./vite-plugin'))
-		.register(import('@fastify/cookie'), {
-			hook: 'onRequest',
-			secret: env.SECRET,
-		})
-		.register(import('@fastify/websocket'))
-		.register(googleAuth, {
-			GOOGLE_CLIENT_ID: env.GOOGLE_CLIENT_ID,
-			GOOGLE_CLIENT_SECRET: env.GOOGLE_CLIENT_SECRET,
-		})
-		.register(fastifyTRPCPlugin, {
-			prefix: '/trpc',
-			trpcOptions: { createContext, router: apiRouter },
-			useWSS: true,
+		.register(import('./vite-plugin'), {
+			nodeEnv: env.NODE_ENV,
 		})
 		.ready()
 

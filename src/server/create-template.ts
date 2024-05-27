@@ -2,11 +2,10 @@ import Fs from 'node:fs'
 import Path from 'node:path'
 import appRootPath from 'app-root-path'
 import type { HelmetServerState } from 'react-helmet-async'
-import { env } from './env'
 
 export const createTemplate = <const T extends HelmetServerState>(
 	helmet: T | null = null,
-	nodeEnv = env.NODE_ENV,
+	nodeEnv: 'development' | 'production' | 'test' = 'development',
 ) => {
 	const indexPath =
 		nodeEnv === 'production'

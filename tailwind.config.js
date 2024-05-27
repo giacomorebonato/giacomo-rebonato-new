@@ -10,7 +10,7 @@ const config = {
 		extend: {},
 	},
 	daisyui: {
-		themes: false,
+		themes: ['synthwave'],
 	},
 	plugins: [require('@tailwindcss/typography'), require('daisyui')],
 }
