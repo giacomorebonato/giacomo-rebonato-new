@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Suspense, lazy, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import WhoAmI from '#/blog/who-am-i.mdx'
 
@@ -13,7 +14,19 @@ function MyP(props: React.HTMLAttributes<HTMLParagraphElement>) {
 	return <p className='p-0 m-0' {...props} />
 }
 
+let LazyPwaReloadPrompt: React.FC = () => null
+
 function IndexComponent() {
+	useEffect(() => {
+		if (import.meta.env.PROD) {
+			LazyPwaReloadPrompt = lazy(() => {
+				return import('#/browser/pwa-reload-prompt').then((c) => ({
+					default: c.PwaReloadPrompt,
+				}))
+			})
+		}
+	}, [])
+
 	return (
 		<div className='flex flex-col md:flex-row'>
 			<Helmet>
@@ -42,6 +55,9 @@ function IndexComponent() {
 					}}
 				/>
 			</main>
+			<Suspense fallback={<div />}>
+				<LazyPwaReloadPrompt />
+			</Suspense>
 		</div>
 	)
 }
