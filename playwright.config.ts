@@ -1,6 +1,4 @@
-import Path from 'node:path'
 import { defineConfig, devices } from '@playwright/test'
-import appRootPath from 'app-root-path'
 
 /**
  * Read environment variables from file.
@@ -15,22 +13,12 @@ export default defineConfig({
 	fullyParallel: true,
 	projects: [
 		{
-			// https://playwright.dev/docs/auth
-			name: 'setup',
-			testMatch: /.*\.setup\.ts/,
-			use: {
-				...devices['Desktop Chrome'],
-			},
-		},
-
-		{
 			name: 'tests',
 			use: {
 				...devices['Desktop Chrome'],
-				storageState: Path.join(appRootPath.path, 'e2e', 'user.json'),
 				screenshot: 'only-on-failure',
 			},
-			dependencies: ['setup'],
+			dependencies: [],
 		},
 	],
 
