@@ -9,6 +9,7 @@ primary_region = 'ams'
 [build]
 
 [env]
+  NODE_ENV = 'production'
   HOST = '0.0.0.0'
   HOST_NAMES_REDIRECT_FROM = 'giacomorebonato.com'
   SITE_URL = 'https://www.giacomorebonato.com'
