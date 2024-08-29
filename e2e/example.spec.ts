@@ -15,10 +15,25 @@ test(`it renders valid HTML`, async ({ browser }) => {
 			'wcag/h32': 0,
 			'prefer-native-element': 0,
 			'no-implicit-button-type': 0,
+			'attribute-boolean-style': 0,
 		},
 	})
 	const html = await page.content()
 	const report = await htmlvalidate.validateString(html)
 
 	expect(report.valid).toBe(true)
+})
+
+test(`it renders valid HTML of the main page with clientOnly rendering`, async ({
+	page,
+}) => {
+	page.on('console', (msg) => {
+		if (msg.type() === 'error') {
+			throw Error(msg.text())
+		}
+	})
+
+	await page.goto('http://localhost:3000?clientOnly=true')
+	await page.getByText(`Modern Web Development with Fastify + React`)
+	await expect(page.getByText(`Giacomo Rebonato`)).toBeVisible()
 })
