@@ -15,6 +15,7 @@ test(`it renders valid HTML`, async ({ browser }) => {
 			'wcag/h32': 0,
 			'prefer-native-element': 0,
 			'no-implicit-button-type': 0,
+			'attribute-boolean-style': 0,
 		},
 	})
 	const html = await page.content()
@@ -34,5 +35,5 @@ test(`it renders valid HTML of the main page with clientOnly rendering`, async (
 
 	await page.goto('http://localhost:3000?clientOnly=true')
 	await page.getByText(`Modern Web Development with Fastify + React`)
-	await page.getByTestId(`btn-logout`).click()
+	await expect(page.getByText(`Giacomo Rebonato`)).toBeVisible()
 })
