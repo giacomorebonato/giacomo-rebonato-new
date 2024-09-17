@@ -20,7 +20,7 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.11.4",
-		"@fastify/static": "^7.0.4",
+		"@fastify/static": "^8.0.0",
 		"@mdx-js/mdx": "^3.0.1",
 		"@mdx-js/react": "^3.0.1",
 		"@tanstack/react-router": "^1.47.1",
