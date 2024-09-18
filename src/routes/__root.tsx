@@ -3,6 +3,7 @@ import { DehydrateRouter } from '@tanstack/start'
 import { Suspense, lazy } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import type { HelmetServerState } from 'react-helmet-async'
+import { CustomMeta } from '#/server/use-custom-meta'
 import type { RouterContext } from '#/types/router-context'
 
 export const Route = createRootRouteWithContext<RouterContext>()({
@@ -23,6 +24,7 @@ function RootComponent() {
 
 	return (
 		<HelmetProvider context={loaderData.helmetContext}>
+			<CustomMeta />
 			<Outlet />
 			<DehydrateRouter />
 			<Suspense fallback={null}>
