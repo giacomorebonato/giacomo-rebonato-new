@@ -11,7 +11,7 @@
 		"e2e:headed": "CI=true playwright test --headed",
 		"e2e:ui": "CI=true playwright test --ui",
 		"format:check": "biome check .",
-		"format": "biome check --apply-unsafe .",
+		"format": "biome check --write --unsafe .",
 		"generate-pwa-assets": "pwa-assets-generator",
 		"prepare": "husky"
 	},
